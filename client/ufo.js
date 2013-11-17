@@ -54,7 +54,7 @@
             }
             ships = names;
             $('#0').css({
-                'background-color':'green'
+                'background-color':'blue'
             });
             $('#1').css({
                 'background-color':'green'

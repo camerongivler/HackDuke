@@ -1,7 +1,5 @@
 var http = require('http');
-var url = require('url');
 var path = require('path');
-var fs = require('fs');
 var socketio = require('socket.io');
 var express = require('express');
 var router = express();
@@ -12,8 +10,6 @@ var positions = [];
 var names = [];
 var width = 10000000;
 var height = 10000000;
-
-console.log("I'm a stupid meany pants!");
 
 router.use(express.static(path.resolve(__dirname, 'client')))
 
@@ -32,8 +28,7 @@ io.on('connection', function (socket) {
     socket.set('num', clients.indexOf(socket));
 
     socket.on('name', function (name) {
-        socket.set('name', name, function () {
-            console.log('name: ' + name);
+        socket.set('name', name, function () { 
             socket.get('num', function (err, num) {
                 names[num] = name;
                 socket.emit('ready', num);
@@ -63,7 +58,6 @@ io.on('connection', function (socket) {
 
     socket.on('died', function(){
         socket.get('num', function (err, num){
-            console.log('remove ' + num);
             broadcast('remove', num);
         });
     });
@@ -98,9 +92,7 @@ var broadcast = function (event, data) {
     });
 };
 
-var port = process.env.PORT || 5000;
-
-server.listen(process.env.PORT, function () {
+server.listen(process.env.PORT || 8000, process.env.IP || "0.0.0.0", function () {
     var addr = server.address();
     console.log("Server listening at", addr.address + ":" + addr.port);
 });
