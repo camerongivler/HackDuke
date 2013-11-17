@@ -13,6 +13,8 @@ var names = [];
 var width = 10000000;
 var height = 10000000;
 
+console.log("I'm a stupid meany pants!");
+
 router.use(express.static(path.resolve(__dirname, 'client')))
 
 io.set('log level', 1);
@@ -96,7 +98,9 @@ var broadcast = function (event, data) {
     });
 };
 
-server.listen(process.env.PORT || 8000, process.env.IP || "0.0.0.0", function () {
+var port = process.env.PORT || 5000;
+
+server.listen(process.env.PORT, function () {
     var addr = server.address();
     console.log("Server listening at", addr.address + ":" + addr.port);
 });
